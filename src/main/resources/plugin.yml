@@ -1,0 +1,11 @@
+name: BetterSuicide
+version: '1.0-SNAPSHOT'
+main: io.github.Cherryh4ck.betterSuicide.BetterSuicide
+api-version: '1.21'
+commands:
+  suicide:
+    description: Suicide command.
+    usage: /suicide
+  kill:
+    description: Suicide command.
+    usage: /kill
