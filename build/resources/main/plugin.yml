@@ -1,11 +1,11 @@
 name: BetterSuicide
-version: '1.0-SNAPSHOT'
+version: '1.0.1'
+description: A better version of OldSchoolKill.
+author: cherryh4ck
 main: io.github.Cherryh4ck.betterSuicide.BetterSuicide
 api-version: '1.21'
 commands:
   suicide:
     description: Suicide command.
     usage: /suicide
-  kill:
-    description: Suicide command.
-    usage: /kill
+    aliases: kill
