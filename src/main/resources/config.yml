@@ -1,0 +1,9 @@
+# BetterSuicide, made by Cherryh4ck
+# This is the configuration file for the plugin.
+
+# --- Variables ---
+
+# Disable executing vanilla /kill to ops (admin perms) and console?
+# May prevent admin abuse in an anarchy server, but it may cause problems when it's really needed
+# By default, this is false
+disable-kill-for-ops: false
