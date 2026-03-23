@@ -10,22 +10,7 @@ import org.bukkit.entity.Player
 class Suicide(private val plugin: BetterSuicide)  : CommandExecutor, TabCompleter {
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>): Boolean {
         if (sender is Player) {
-            if (!sender.isOp || label.lowercase() == "suicide"){
-                sender.health = 0.0
-            }
-            else{
-                if (!plugin.killDisabledToOps){
-                    if (!args.isEmpty()){
-                        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "minecraft:kill ${args[0]}")
-                    }
-                    else {
-                        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "minecraft:kill ${sender.name}")
-                    }
-                }
-                else{
-                    sender.health = 0.0
-                }
-            }
+            sender.health = 0.0
         }
         return true
     }
