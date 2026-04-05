@@ -1,12 +1,16 @@
 package io.github.Cherryh4ck.betterSuicide
 
+import net.kyori.adventure.text.minimessage.MiniMessage
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerCommandPreprocessEvent
 import org.bukkit.plugin.java.JavaPlugin
 
 class BetterSuicide : JavaPlugin(), Listener {
-    var killDisabledToOps : Boolean = false
+    val minimessage = MiniMessage.miniMessage()
+    var redirectKill : Boolean = false
+    var usePermissions : Boolean = false
+    var noPermissions : String = ""
 
     override fun onEnable() {
         saveDefaultConfig()
@@ -33,7 +37,9 @@ class BetterSuicide : JavaPlugin(), Listener {
     }
 
     fun loadConfig(){
-        killDisabledToOps = config.getBoolean("disable-kill-for-ops") ?: false
+        redirectKill = config.getBoolean("redirect-kill-for-ops") ?: false
+        usePermissions = config.getBoolean("use-permission") ?: false
+        noPermissions = config.getString("no-permissions") ?: ""
     }
 
     @EventHandler
@@ -41,7 +47,7 @@ class BetterSuicide : JavaPlugin(), Listener {
         val message = event.message.lowercase()
         val player = event.player
 
-        if (message.startsWith("/kill") && player.isOp && !killDisabledToOps) {
+        if (message.startsWith("/kill") && player.isOp && redirectKill) {
             event.message = message.replaceFirst("/kill", "/minecraft:kill")
         }
     }

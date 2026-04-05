@@ -3,8 +3,15 @@
 
 # --- Variables ---
 
-# Disable executing vanilla /kill to ops (admin perms) and console?
-# May prevent admin abuse in an anarchy server, but it may cause problems when it's really needed
-# BTW this can be bypassed if OP uses /minecraft:kill!!
-# By default, this is false
-disable-kill-for-ops: false
+# Automatically redirect /kill to /minecraft:kill for OPs?
+# By default, this is true.
+redirect-kill-for-ops: true
+
+# Use permissions to use /kill and /suicide?
+# You probably want this set to false if you want everybody to have access to those commands.
+# Permission - bettersuicide.suicide
+use-permission: false
+
+# --- Messages ---
+# Supports mini-message formatting!
+no-permissions: "<red>You do not have the permissions to do this."

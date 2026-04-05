@@ -10,13 +10,17 @@ import org.bukkit.entity.Player
 class Suicide(private val plugin: BetterSuicide)  : CommandExecutor, TabCompleter {
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>): Boolean {
         if (sender is Player) {
+            if (plugin.usePermissions && !sender.hasPermission("bettersuicide.suicide")) {
+                sender.sendMessage(plugin.minimessage.deserialize(plugin.noPermissions))
+                return true
+            }
             sender.health = 0.0
         }
         return true
     }
 
     override fun onTabComplete(sender: CommandSender, command: Command, alias: String, args: Array<out String>): List<String>? {
-        if (args.size == 1 && sender.isOp && alias.equals("kill", ignoreCase = true) && !plugin.killDisabledToOps) {
+        if (args.size == 1 && sender.isOp && alias.equals("kill", ignoreCase = true) && plugin.redirectKill) {
             return Bukkit.getOnlinePlayers()
                 .map { it.name }
                 .filter { it.startsWith(args[0], ignoreCase = true) }
