@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "io.github.Cherryh4ck"
-version = "1.0.3a"
+version = "1.0.4"
 
 repositories {
     mavenCentral()
