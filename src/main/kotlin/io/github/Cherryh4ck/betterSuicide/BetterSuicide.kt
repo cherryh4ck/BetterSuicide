@@ -10,7 +10,11 @@ class BetterSuicide : JavaPlugin(), Listener {
     val minimessage = MiniMessage.miniMessage()
     var redirectKill : Boolean = false
     var usePermissions : Boolean = false
+    var enableCooldown : Boolean = false
+    var cooldown : Int = 0
+    var cooldownMessage : Boolean = false
     var noPermissions : String = ""
+    var onCooldown : String = ""
 
     override fun onEnable() {
         saveDefaultConfig()
@@ -37,9 +41,13 @@ class BetterSuicide : JavaPlugin(), Listener {
     }
 
     fun loadConfig(){
-        redirectKill = config.getBoolean("redirect-kill-for-ops") ?: false
-        usePermissions = config.getBoolean("use-permission") ?: false
+        redirectKill = config.getBoolean("redirect-kill-for-ops")
+        usePermissions = config.getBoolean("use-permission")
+        enableCooldown = config.getBoolean("enable-cooldown")
+        cooldown = config.getInt("cooldown-timer")
+        cooldownMessage = config.getBoolean("enable-cooldown-message")
         noPermissions = config.getString("no-permissions") ?: ""
+        onCooldown = config.getString("cooldown-active") ?: ""
     }
 
     @EventHandler

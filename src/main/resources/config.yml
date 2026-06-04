@@ -12,6 +12,17 @@ redirect-kill-for-ops: true
 # Permission - bettersuicide.suicide
 use-permission: false
 
+# Should /kill & /suicide have a cooldown delay?
+# Permission to bypass - bettersuicide.bypass
+enable-cooldown: false
+
+# If so, how much in seconds?
+cooldown-timer: 4
+
+# Should the plugin display an error when the player is on cooldown?
+enable-cooldown-message: false
+
 # --- Messages ---
 # Supports mini-message formatting!
 no-permissions: "<red>You do not have the permissions to do this."
+cooldown-active: "<red>You are on a cooldown."
