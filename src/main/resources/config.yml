@@ -3,6 +3,9 @@
 
 # --- Variables ---
 
+# Plugin prefix
+plugin-prefix: "<gold><b>[BetterSuicide]<reset>"
+
 # Automatically redirect /kill to /minecraft:kill for OPs?
 # By default, this is true.
 redirect-kill-for-ops: true
