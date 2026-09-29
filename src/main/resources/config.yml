@@ -25,7 +25,11 @@ cooldown-timer: 4
 # Should the plugin display an error when the player is on cooldown?
 enable-cooldown-message: false
 
+# Should the plugin display a global message in chat when a player suicides?
+enable-global-death-message: false
+
 # --- Messages ---
 # Supports mini-message formatting!
 no-permissions: "<red>You do not have the permissions to do this."
 cooldown-active: "<red>You are on a cooldown."
+global-death-message: "<red>[!] <yellow>{player} has killed himself!"

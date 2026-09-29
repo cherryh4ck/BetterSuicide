@@ -12,6 +12,8 @@ class BetterSuicide : JavaPlugin(), Listener {
     val minimessage = MiniMessage.miniMessage()
     var redirectKill : Boolean = false
     var usePermissions : Boolean = false
+    var enableGlobalDeathMessage : Boolean = false
+    var globalDeathMessage : String = ""
     var enableCooldown : Boolean = false
     var cooldown : Int = 0
     var cooldownMessage : Boolean = false
@@ -50,6 +52,8 @@ class BetterSuicide : JavaPlugin(), Listener {
         pluginPrefix = config.getString("plugin-prefix") ?: ""
         redirectKill = config.getBoolean("redirect-kill-for-ops")
         usePermissions = config.getBoolean("use-permission")
+        enableGlobalDeathMessage = config.getBoolean("enable-global-death-message")
+        globalDeathMessage = config.getString("global-death-message") ?: ""
         enableCooldown = config.getBoolean("enable-cooldown")
         cooldown = config.getInt("cooldown-timer")
         cooldownMessage = config.getBoolean("enable-cooldown-message")

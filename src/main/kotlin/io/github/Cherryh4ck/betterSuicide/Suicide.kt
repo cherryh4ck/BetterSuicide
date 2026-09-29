@@ -18,13 +18,16 @@ class Suicide(private val plugin: BetterSuicide)  : CommandExecutor, TabComplete
                 sender.sendMessage(plugin.minimessage.deserialize(plugin.noPermissions))
                 return true
             }
-
             if (plugin.enableCooldown && cooldowns.contains(sender.uniqueId) && !sender.hasPermission("bettersuicide.bypass")) {
                 if (plugin.cooldownMessage) {
                     sender.sendMessage(plugin.minimessage.deserialize(plugin.onCooldown))
                 }
                 return true
             }
+            if (plugin.enableGlobalDeathMessage) {
+                Bukkit.getServer().sendMessage(plugin.minimessage.deserialize(plugin.globalDeathMessage.replace("{player}", sender.name)))
+            }
+
             sender.health = 0.0
             cooldowns.add(sender.uniqueId)
             Bukkit.getScheduler().runTaskLater(plugin, Runnable {
