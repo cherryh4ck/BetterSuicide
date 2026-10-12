@@ -1,8 +1,9 @@
 # BetterSuicide, made by Cherryh4ck
 # This is the configuration file for the plugin.
 
+# -----------------
 # --- Variables ---
-
+# -----------------
 # Plugin prefix
 plugin-prefix: "<gold><b>[BetterSuicide]<reset>"
 
@@ -28,7 +29,14 @@ enable-cooldown-message: false
 # Should the plugin display a global message in chat when a player suicides?
 enable-global-death-message: false
 
+# Extra aliases for /suicide. /suicide and /kill always work.
+# Use names that no other command uses. Changing this requires a server restart.
+# Example: ["die", "kms"]
+aliases: []
+
+# ----------------
 # --- Messages ---
+# ----------------
 # Supports mini-message formatting!
 no-permissions: "<red>You do not have the permissions to do this."
 cooldown-active: "<red>You are on a cooldown."

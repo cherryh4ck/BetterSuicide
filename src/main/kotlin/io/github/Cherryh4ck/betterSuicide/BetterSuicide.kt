@@ -20,6 +20,7 @@ class BetterSuicide : JavaPlugin(), Listener {
     var noPermissions : String = ""
     var onCooldown : String = ""
     var pluginPrefix : String = ""
+    var aliases : List<String> = emptyList()
 
     override fun onEnable() {
         saveDefaultConfig()
@@ -33,13 +34,17 @@ class BetterSuicide : JavaPlugin(), Listener {
         val kill = getCommand("kill")
         val bettersuicide = getCommand("bettersuicide")
 
-        suicide?.setExecutor(Suicide(this))
-        kill?.setExecutor(Suicide(this))
+        val suicideHandler = Suicide(this)
+
+        suicide?.setExecutor(suicideHandler)
+        kill?.setExecutor(suicideHandler)
         bettersuicide?.setExecutor(this)
 
-        suicide?.tabCompleter = Suicide(this)
-        kill?.tabCompleter = Suicide(this)
+        suicide?.tabCompleter = suicideHandler
+        kill?.tabCompleter = suicideHandler
         bettersuicide?.tabCompleter = this
+
+        registerAliases(suicideHandler)
 
         server.pluginManager.registerEvents(this, this)
     }
@@ -59,6 +64,20 @@ class BetterSuicide : JavaPlugin(), Listener {
         cooldownMessage = config.getBoolean("enable-cooldown-message")
         noPermissions = config.getString("no-permissions") ?: ""
         onCooldown = config.getString("cooldown-active") ?: ""
+        aliases = config.getStringList("aliases")
+    }
+
+    private fun registerAliases(handler: Suicide) {
+        for (alias in aliases) {
+            val name = alias.trim().removePrefix("/").lowercase()
+            if (name.isEmpty() || name == "suicide" || name == "kill" || name == "bettersuicide") {
+                continue
+            }
+            val registered = server.commandMap.register(name, "bettersuicide", AliasCommand(name, handler))
+            if (!registered) {
+                logger.warning("The alias /$name is already used by another command. Use /bettersuicide:$name instead.")
+            }
+        }
     }
 
     fun reloadPluginConfig(){
@@ -84,8 +103,12 @@ class BetterSuicide : JavaPlugin(), Listener {
 
         when (args[0].lowercase()) {
             "reload" -> {
+                val previousAliases = aliases
                 reloadPluginConfig()
                 sender.sendMessage(minimessage.deserialize("$pluginPrefix <gold>Reloaded!"))
+                if (aliases != previousAliases) {
+                    sender.sendMessage(minimessage.deserialize("$pluginPrefix <yellow>Alias changes require a server restart."))
+                }
                 return true
             }
             else -> {

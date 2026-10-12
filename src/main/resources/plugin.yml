@@ -8,7 +8,9 @@ commands:
   suicide:
     description: Suicide command.
     usage: /suicide
-    aliases: kill
+  kill:
+    description: Suicide command.
+    usage: /kill
   bettersuicide:
     description: Main command.
     usage: /bettersuicide
