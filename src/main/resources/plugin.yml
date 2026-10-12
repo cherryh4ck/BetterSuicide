@@ -14,3 +14,4 @@ commands:
   bettersuicide:
     description: Main command.
     usage: /bettersuicide
+    permission: bettersuicide.main
