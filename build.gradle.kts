@@ -23,6 +23,12 @@ kotlin {
     jvmToolchain(targetJavaVersion)
 }
 
+tasks {
+    jar {
+        enabled = false
+    }
+}
+
 tasks.build {
     dependsOn("shadowJar")
 }
