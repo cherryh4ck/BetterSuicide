@@ -9,7 +9,8 @@ import org.bukkit.entity.Player
 import java.util.UUID
 
 class Suicide(private val plugin: BetterSuicide)  : CommandExecutor, TabCompleter {
-    private val cooldowns = HashMap<UUID, Long>()
+    private val cooldowns = HashSet<UUID>()
+    private val ticksTimer = 20L * plugin.cooldown
 
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>): Boolean {
         if (sender is Player) {
@@ -17,21 +18,21 @@ class Suicide(private val plugin: BetterSuicide)  : CommandExecutor, TabComplete
                 sender.sendMessage(plugin.minimessage.deserialize(plugin.noPermissions))
                 return true
             }
-            if (plugin.enableCooldown && !sender.hasPermission("bettersuicide.bypass")) {
-                val now = System.currentTimeMillis()
-                if (now < (cooldowns[sender.uniqueId] ?: 0L)) {
-                    if (plugin.cooldownMessage) {
-                        sender.sendMessage(plugin.minimessage.deserialize(plugin.onCooldown))
-                    }
-                    return true
+            if (plugin.enableCooldown && cooldowns.contains(sender.uniqueId) && !sender.hasPermission("bettersuicide.bypass")) {
+                if (plugin.cooldownMessage) {
+                    sender.sendMessage(plugin.minimessage.deserialize(plugin.onCooldown))
                 }
-                cooldowns[sender.uniqueId] = now + plugin.cooldown * 1000L
+                return true
             }
             if (plugin.enableGlobalDeathMessage) {
                 Bukkit.getServer().sendMessage(plugin.minimessage.deserialize(plugin.globalDeathMessage.replace("{player}", sender.name)))
             }
 
             sender.health = 0.0
+            cooldowns.add(sender.uniqueId)
+            Bukkit.getScheduler().runTaskLater(plugin, Runnable {
+                cooldowns.remove(sender.uniqueId)
+            }, ticksTimer)
         }
         return true
     }
