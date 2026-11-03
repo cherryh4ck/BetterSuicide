@@ -7,6 +7,7 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerCommandPreprocessEvent
 import org.bukkit.plugin.java.JavaPlugin
+import org.bstats.bukkit.Metrics
 
 class BetterSuicide : JavaPlugin(), Listener {
     val minimessage = MiniMessage.miniMessage()
@@ -27,6 +28,9 @@ class BetterSuicide : JavaPlugin(), Listener {
         loadConfig()
 
         logger.info("------------------------------")
+        val pluginId = 35098
+        val Metrics = Metrics(this, pluginId)
+        logger.info("bStats initialized.")
         logger.info("Plugin activated successfully.")
         logger.info("-------------------------------")
 
